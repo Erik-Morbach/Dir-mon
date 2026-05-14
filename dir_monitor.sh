@@ -14,9 +14,12 @@ fi
 
 echo "Começando verificação"
 
+lastSave=$(ls -1 $MON_DIR)
 while [ 1 ]; do
-  echo "List:"
-  ls -1 $MON_DIR
-  echo "------------"
+  save=$(ls -1 $MON_DIR)
+  if [[ "$lastSave" != "$save" ]]; then
+    bash -c "$(printf ' %q' "$@")"
+  fi
+  lastSave=$save
   sleep 2
 done
